@@ -208,10 +208,17 @@ function displayLoc(loc) {
   document.querySelector('.loc.active')?.classList?.remove('active')
   document.querySelector(`.loc[data-id="${loc.id}"]`).classList.add('active')
 
+  const {lat, lng} = loc.geo
   mapService.panTo(loc.geo)
   mapService.setMarker(loc)
-
+  
   const el = document.querySelector('.selected-loc')
+  
+  if(gUserPos) {
+    const distance = utilService.getDistance({lat, lng}, gUserPos, 'K')
+    el.querySelector('.selected-distance').innerText = `Distance: ${distance} KM`
+  }
+  
   el.querySelector('.loc-name').innerText = loc.name
   el.querySelector('.loc-address').innerText = loc.geo.address
   el.querySelector('.loc-rate').innerHTML = '★'.repeat(loc.rate)
