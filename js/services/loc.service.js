@@ -39,6 +39,12 @@ function query() {
       const regex = new RegExp(gFilterBy.txt, 'i')
       locs = locs.filter((loc) => regex.test(loc.name) || regex.test(loc.geo.address))
     }
+
+      if (gFilterBy.txt) {
+      const regex = new RegExp(gFilterBy.txt, 'i')
+      locs = locs.filter((loc) => regex.test(loc.name) || regex.test(loc.geo.address))
+    }
+
     if (gFilterBy.minRate) {
       locs = locs.filter((loc) => loc.rate >= gFilterBy.minRate)
     }
@@ -57,7 +63,8 @@ function query() {
     } else if (gSortBy.createdAt !== undefined) {
       locs.sort((p1, p2) => (p1.createdAt - p2.createdAt) * gSortBy.createdAt)
     }
-    console.log('locs:', locs)
+   
+   
     return locs
   })
 }
